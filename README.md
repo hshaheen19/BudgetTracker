@@ -20,11 +20,16 @@ To install sqlite3
 To install sqlalchemy
 ### pip install flask-sqlalchemy
 
+To install pytest and pytest-cov
+### pip install pytest
+### pip install pytest-cov
+
 * Requirement.txt include all the required packages information
-* In flaskr folder there is already a tracker.db file that contains tables 
-* If you want to create again just remove the tracker.db and run the db.py
+* tracker.db file that contains tables 
 * db.py is setting up the db it contains all tables properties and their relantionship 
-* browse to flaskr folder and run python db.py and it will create tracker.db 
+* All the test cases are in test_db.py 
+* To run the test cases run pytest in terminal 
+* All test cases are documentated and commented
 
 
 
