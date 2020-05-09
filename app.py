@@ -21,7 +21,6 @@ class User(db.Model):
     user_name = db.Column(db.String(20), nullable=False, unique=True)
     user_email = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(40), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, nullable=False)
 
     budgets = db.relationship("Budget", back_populates="user", passive_deletes=True)
 
@@ -39,7 +38,6 @@ class Budget(db.Model):
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
     currency_type = db.Column(db.String(20), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, nullable=False)
     #Relationship with user table
     user_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))
     user = db.relationship("User", back_populates="budgets")
@@ -59,7 +57,6 @@ class Expense(db.Model):
     expense_description = db.Column(db.String(40), nullable=True)
     expense_amount = db.Column(db.Float, nullable=False)
     expense_date = db.Column(db.DateTime, nullable=False)
-    created_at = db.Column(db.TIMESTAMP, nullable=False)
     #Relationship with Budget table
     budget_id = db.Column(db.Integer, db.ForeignKey("budget.id", ondelete="CASCADE"))
     budget = db.relationship("Budget", back_populates="expenses")

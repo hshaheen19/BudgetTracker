@@ -33,8 +33,7 @@ def _get_user():
     return User(
         user_name="User 1",
         user_email="user1@",
-        password="abc",
-        created_at=datetime.datetime.now()
+        password="abc"
     )
 
 def _get_budget():
@@ -43,16 +42,14 @@ def _get_budget():
         budget_amount=10,
         start_date=datetime.datetime.now(),
         end_date=datetime.datetime.now(),
-        currency_type="euro",
-        created_at=datetime.datetime.now()
+        currency_type="euro"
     )
 
 def _get_expense():
     return Expense(
         expense_name="Expense 1",
         expense_amount=1,
-        expense_date=datetime.datetime.now(),
-        created_at=datetime.datetime.now()
+        expense_date=datetime.datetime.now()
     )
 
 def test_create_instances(db_handle):
