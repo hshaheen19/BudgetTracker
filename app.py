@@ -18,16 +18,22 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String(20), nullable=True)
+    user_name = db.Column(db.String(20), nullable=False, unique=True)
     user_email = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(40), nullable=False)
     created_at = db.Column(db.TIMESTAMP, nullable=False)
 
     budgets = db.relationship("Budget", back_populates="user", passive_deletes=True)
 
+    def __repr__(self):
+        return "{} <{}>".format(self.user_name, self.id)
+
 class Budget(db.Model):
+    #Each user can have one budget with same name
+    __table_args__ = (db.UniqueConstraint("budget_name", "user_id", name="_user_budget_uc"), )
+
     id = db.Column(db.Integer, primary_key=True)
-    budget_name = db.Column(db.String(20), nullable=False,  unique=True)
+    budget_name = db.Column(db.String(20), nullable=False)
     budget_description = db.Column(db.String(40), nullable=True)
     budget_amount = db.Column(db.Float, nullable=False)
     start_date = db.Column(db.DateTime, nullable=False)
@@ -36,12 +42,18 @@ class Budget(db.Model):
     created_at = db.Column(db.TIMESTAMP, nullable=False)
     #Relationship with user table
     user_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))
-    user = db.relationship("User", back_populates="budgets", passive_deletes=True)
+    user = db.relationship("User", back_populates="budgets")
     #Relationship with expense table
     expenses = db.relationship("Expense", back_populates="budget", passive_deletes=True)
 
+    def __repr__(self):
+        return "{} <{}> in {}".format(self.budget_name, self.id, self.user.user_name)
+
 
 class Expense(db.Model):
+     #Each budget can have one expense with same name
+    __table_args__ = (db.UniqueConstraint("expense_name", "budget_id", name="_budget_expense_uc"), )
+
     id = db.Column(db.Integer, primary_key=True)
     expense_name = db.Column(db.String(20), nullable=False)
     expense_description = db.Column(db.String(40), nullable=True)
@@ -50,7 +62,10 @@ class Expense(db.Model):
     created_at = db.Column(db.TIMESTAMP, nullable=False)
     #Relationship with Budget table
     budget_id = db.Column(db.Integer, db.ForeignKey("budget.id", ondelete="CASCADE"))
-    budget = db.relationship("Budget", back_populates="expenses", passive_deletes=True)
+    budget = db.relationship("Budget", back_populates="expenses")
+
+    def __repr__(self):
+        return "{} <{}> in {}".format(self.expense_name, self.id, self.budget.budget_name)
 
 
 #Excluding the expenses from the project

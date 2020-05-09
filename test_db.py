@@ -152,6 +152,9 @@ def test_expense_onupdate_budget(db_handle):
     db_expense.expense_amount = 2
     #Get new expense and add it to the budget
     new_expense = _get_expense()
+    #Can not add expense with same name
+    new_expense.expense_name = "new expense"
+    
     new_expense.budget = db_bugdet
 
     #Add it in the DB
@@ -163,13 +166,16 @@ def test_expense_onupdate_budget(db_handle):
     assert Expense.query.count() == 2
 
 
-def test_budget_name_unique(db_handle):
+def test_user_budget_unique(db_handle):
     """
-    Tests that two budgets can not have same name
-    name should be unique for a budget
+    Tests that two budgets with same user
+    can not exist for same user 
     """
+    user = _get_user()
     budget_1 = _get_budget()
     budget_2 = _get_budget()
+    budget_1.user = user
+    budget_2.user = user
     db_handle.session.add(budget_1)
     db_handle.session.add(budget_2)    
     with pytest.raises(IntegrityError):
