@@ -315,7 +315,7 @@ class BudgetCollection(Resource):
             )
 
         return Response(status=201, headers={
-            "Location": api.url_for(BudgetCollection, user=user) + request.json["budget_name"]+'/'})
+            "Location": api.url_for(BudgetItem, user=user, budget=request.json["budget_name"])})
 
 
 '''
@@ -646,7 +646,7 @@ def entry_point():
     body.add_control_all_users()
     return Response(json.dumps(body), 200, mimetype=MASON)
 
-@app.route("/storage/link-relations/")
+@app.route("/budtrack/link-relations/")
 def redirect_to_apiary_link_rels():
     return "", 200
 
