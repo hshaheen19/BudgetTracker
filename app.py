@@ -794,7 +794,7 @@ class BudgetBuilder(MasonBuilder):
     def budget_schema():
         schema = {
             "type": "object",
-            "required": ["budget_name", "budget_amount", "start_date", "end_date"]
+            "required": ["budget_name","budget_description","currency_type","budget_amount", "start_date", "end_date"]
             }
         props = schema["properties"] = {}
         props["budget_name"] = {
