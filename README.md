@@ -41,7 +41,24 @@ Running above command in your repo directory will run all the test cases and wil
 <pre><code>pip --verbose</code></pre>
 This will show the names of all the passes test cases
 <pre><code>pip --cov=./</code></pre>
-Will generate a coverage report about test cases. Right now running this will generate **94%** coverage.
+Will generate a coverage report about test cases. Right now running this will generate **92%** coverage in **app.py**.
 
+
+## Client
+I have implemented a console client that uses three resources and has following funtionalities 
+* Get All Users (/api/users)[GET]
+* Create a User (/api/users)[POST]
+* Edit a User   (/api/user/{user})[PUT]
+* Delete a User   (/api/user/{user})[DELETE]
+* Get User Budgets   (/api/user/{user}/budgets)[GET]
+* Create User Budget   (/api/user/{user}/budgets)[POST]
+
+![alt text](https://github.com/hshaheen19/BudgetTracker/blob/master/design/Client_functions.PNG "Client Functions")
+
+Client will take information through user input, folllowing are the few more screenshots showing how the client works.
+
+![alt text](https://github.com/hshaheen19/BudgetTracker/blob/master/design/new_budget.PNG "Create Budget")
+
+![alt text](https://github.com/hshaheen19/BudgetTracker/blob/master/design/get_budget.PNG "Get Budgets")
 
 
